@@ -8,10 +8,9 @@ module.exports = {
             return courses;
 
         },
-        getCourse(obj, { id }) {
-            console.log(id);
-            //when function return true, return value, when match find id
-            return courses.find((course) => id == course.id);
+        async getCourse(obj, { id }) {
+            const course = await Course.findById(id);
+            return course;
         }
 
     },
