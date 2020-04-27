@@ -5,7 +5,7 @@ module.exports = {
 
     Query: {
         async getCourses(obj, { page, limit }) {
-            let courses = Course.find()
+            let courses = Course.find().populate('user');
             if (page !== undefined) {
                 courses = courses.limit(limit).skip((page - 1) * limit);
 
@@ -27,6 +27,7 @@ module.exports = {
             const course = new Course({...input, user });
             await course.save();
             await userObj.courses.push(course);
+            await userObj.save();
             return course;
         },
 
