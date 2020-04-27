@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
+const courseTypeDefs = require('./types/course.types');
+
 mongoose.connect('mongodb://localhost/graphql_db_course', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const app = express();
@@ -24,7 +26,8 @@ const typeDefs = `
 `;
 
 const schema = makeExecutableSchema({
-    typeDefs: typeDefs,
+    //make array, for make one definition of types
+    typeDefs: [typeDefs, courseTypeDefs],
     resolvers: {}
 })
 
