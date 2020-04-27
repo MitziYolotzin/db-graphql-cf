@@ -27,10 +27,9 @@ module.exports = {
             const course = await Course.findByIdAndUpdate(id, input);
             return course;
         },
-        deleteCourse(obj, { id }) {
+        async deleteCourse(obj, { id }) {
             //find element
-            //function, if it returns false, the new array, no contains the element
-            courses = courses.filter((course) => course.id != id);
+            await Course.deleteOne({ _id: id });
             return {
                 message: `The course with id ${id} it was removed`
             }
