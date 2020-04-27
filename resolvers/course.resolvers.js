@@ -1,4 +1,5 @@
 const Course = require('../models/course');
+const User = require('../models/user');
 
 module.exports = {
 
@@ -19,11 +20,13 @@ module.exports = {
 
     },
     Mutation: {
-        async addCourse(obj, { input }) {
+        async addCourse(obj, { input, user }) {
+            const userObj = await User.findById(user);
             //instance new obj of the model
-            //const course = new  Course({ title: title, views: views });
-            const course = new Course(input);
+            //which user does the course belong
+            const course = new Course({...input, user });
             await course.save();
+            await userObj.courses.push(course);
             return course;
         },
 
