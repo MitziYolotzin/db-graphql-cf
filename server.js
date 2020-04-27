@@ -15,6 +15,8 @@ const courseResolvers = require('./resolvers/course.resolvers');
 const userTypeDefs = require('./types/user.types');
 const userResolvers = require('./resolvers/user.resolvers');
 
+const authFunc = require('./libs/auth');
+
 
 mongoose.connect('mongodb://localhost/graphql_db_course', { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -40,7 +42,11 @@ const resolver = {};
 //instance obj, for create server graphql
 const server = new ApolloServer({
     typeDefs: [typeDefs, courseTypeDefs, userTypeDefs],
-    resolvers: merge(resolver, courseResolvers, userResolvers)
+    resolvers: merge(resolver, courseResolvers, userResolvers),
+    //context of graphql, allow to share info between all operations graphql
+    //trough obj - the value
+    //req, querie info, parameter queries, headers req
+    context: authFunc
 });
 
 server.applyMiddleware({ app: app });

@@ -44,6 +44,7 @@ userSchema.statics.authenticate = async function({ email, password }) {
     if (!result) throw new Error('Email or password are wrong');
 
     //JSON Wen Tokens
+    //payload id
     user.token = jwt.sign({ id: user.id }, secret);
     await user.save();
 

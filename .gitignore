@@ -1,3 +1,4 @@
 node_modules
 
-./libs/env.js
+env.js
+auth.js

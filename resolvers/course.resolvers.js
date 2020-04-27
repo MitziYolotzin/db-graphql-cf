@@ -4,8 +4,10 @@ const User = require('../models/user');
 module.exports = {
 
     Query: {
-        async getCourses(obj, { page, limit }) {
-            let courses = Course.find().populate('user');
+        async getCourses(obj, { page, limit }, context) {
+            console.log(context);
+            //let courses = Course.find().populate('user');
+            let courses = Course.find();
             if (page !== undefined) {
                 courses = courses.limit(limit).skip((page - 1) * limit);
 
