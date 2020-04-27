@@ -3,6 +3,12 @@
 
 const mongoose = require('mongoose');
 
-const courseSchema = new mongoose.Schema({
 
+//define filed of documents, to save in the colection
+const courseSchema = new mongoose.Schema({
+    title: String,
+    views: Number
 });
+
+//return model mongoose for comunication to mongodb
+module.exports = mongoose.model('Course', courseSchema);
