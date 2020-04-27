@@ -43,6 +43,11 @@ module.exports = {
             }
 
         }
+    },
+    Course: {
+        async user(c) {
+            return await User.findById(c.user);
+        }
     }
 
 }
