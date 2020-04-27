@@ -3,13 +3,10 @@ const Course = require('../models/course');
 module.exports = {
 
     Query: {
-        getCourses(obj, { page, limit }) {
-            if (page !== undefined) {
-                return courses.slice(page * limit, (page + 1) * limit);
-                //init in 0
-                //return courses.slice((page-1) * limit, (page) * limit);
-            }
+        async getCourses(obj, { page, limit }) {
+            const courses = await Course.find();
             return courses;
+
         },
         getCourse(obj, { id }) {
             console.log(id);
