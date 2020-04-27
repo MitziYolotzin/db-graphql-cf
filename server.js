@@ -11,6 +11,7 @@ const { merge } = require('lodash');
 const courseTypeDefs = require('./types/course.types');
 const courseResolvers = require('./resolvers/course.resolvers');
 
+
 mongoose.connect('mongodb://localhost/graphql_db_course', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const app = express();

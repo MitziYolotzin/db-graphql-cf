@@ -23,16 +23,9 @@ module.exports = {
             return course;
         },
 
-        updateCourse(obj, { id, input }) {
-            //send function, execute for each element in array, send element as argument 
-            //return true, position, when they are the same id, receive the item´s position to update 
-            const courseIndex = courses.findIndex((course) => id === course.id);
-            const course = courses[courseIndex];
-            //save in a new variable, and construct new obj with value of element, and additional values they modify
-            const newCourse = Object.assign(course, input);
-            course[courseIndex] = newCourse;
-
-            return newCourse;
+        async updateCourse(obj, { id, input }) {
+            const course = await Course.findByIdAndUpdate(id, input);
+            return course;
         },
         deleteCourse(obj, { id }) {
             //find element
