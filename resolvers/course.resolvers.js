@@ -22,7 +22,14 @@ module.exports = {
 
     },
     Mutation: {
-        async addCourse(obj, { input, user }) {
+        async addCourse(obj, { input, user }, context) {
+            //only just user init session
+            //if context false
+            if (!context || context.currentUser) return null;
+            //maybe implement permissions, validate if user have level permissions in DB
+
+
+
             const userObj = await User.findById(user);
             //instance new obj of the model
             //which user does the course belong

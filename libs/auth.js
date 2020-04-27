@@ -14,6 +14,13 @@ module.exports = async function({ req }) {
         currentUser = await User.findById(decodedInfo.id);
         if (!currentUser) throw new Error('Invalid token');
     }
+    //maybe implement permissions, validate if user have level permissions
+
+
+    if (!currentUser) {
+        throw new Error('Needs token');
+
+    }
 
     return {
         token,
