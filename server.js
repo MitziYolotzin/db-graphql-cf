@@ -11,6 +11,9 @@ const { merge } = require('lodash');
 const courseTypeDefs = require('./types/course.types');
 const courseResolvers = require('./resolvers/course.resolvers');
 
+const userTypeDefs = require('./types/user.types');
+const userResolvers = require('./resolvers/user.resolvers');
+
 
 mongoose.connect('mongodb://localhost/graphql_db_course', { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -34,8 +37,8 @@ const resolver = {};
 
 const schema = makeExecutableSchema({
     //make array, for make one definition of types
-    typeDefs: [typeDefs, courseTypeDefs],
-    resolvers: merge(resolver, courseResolvers)
+    typeDefs: [typeDefs, courseTypeDefs, userTypeDefs],
+    resolvers: merge(resolver, courseResolvers, userResolvers)
 })
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema }));

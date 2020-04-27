@@ -1,4 +1,4 @@
-module.exports.userTypes = `
+module.exports = `
     type User {
         id: ID!
         email: String!
