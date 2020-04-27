@@ -2,8 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose'); //ODM
 const bodyParser = require('body-parser');
 
-const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
+//const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
+const { ApolloServer } = require('apollo-server-express');
+//const { makeExecutableSchema } = require('graphql-tools');
 
 //use merge for combine multiples objs
 const { merge } = require('lodash');
@@ -35,14 +36,17 @@ const typeDefs = `
 
 const resolver = {};
 
-const schema = makeExecutableSchema({
-    //make array, for make one definition of types
+
+//instance obj, for create server graphql
+const server = new ApolloServer({
     typeDefs: [typeDefs, courseTypeDefs, userTypeDefs],
     resolvers: merge(resolver, courseResolvers, userResolvers)
-})
+});
 
-app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema }));
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+server.applyMiddleware({ app: app });
+
+//app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema }));
+//app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 app.listen(8080, function() {
     console.log("Server on");
